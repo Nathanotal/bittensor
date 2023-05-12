@@ -47,7 +47,7 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
         parser.add_argument('--dromedary.internal_thought', type=bool, required=False,
                             help='Whether to use internal thought or not', default=False)
         parser.add_argument('--dromedary.load_using_safetensors', type=bool, required=False,
-                            help='Whether to load the model using safetensors or not', default=False)
+                            help='Whether to load the model using safetensors or not', action='store_true', default=False)
 
     def __init__(self):
         super(DromedaryMiner, self).__init__()
@@ -66,7 +66,7 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
             
     def get_model(self):
         if self.config.dromedary.load_using_safetensors:
-            from transformers import AutoGPTQForCausalLM
+            from auto_gptq import AutoGPTQForCausalLM
             return AutoGPTQForCausalLM.from_quantized(self.config.dromedary.model_name, device="cuda:0", use_triton=False)
 
         else:
