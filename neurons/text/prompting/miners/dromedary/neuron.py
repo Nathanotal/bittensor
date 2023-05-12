@@ -44,9 +44,9 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
                             help='Whether to use a custom "system" prompt instead of the one sent by bittensor.')
         parser.add_argument('--dromedary.system_prompt', type=str,
                             help='What prompt to replace the system prompt with', default="BEGINNING OF CONVERSATION: ")
-        parser.add_argument('--dromedary.internal_thought', type=bool, required=False,
-                            help='Whether to use internal thought or not', default=False)
-        parser.add_argument('--dromedary.load_using_safetensors', type=bool, required=False,
+        parser.add_argument('--dromedary.internal_thought', required=False,
+                            help='Whether to use internal thought or not', action='store_true', default=False)
+        parser.add_argument('--dromedary.load_using_safetensors', required=False,
                             help='Whether to load the model using safetensors or not', action='store_true', default=False)
 
     def __init__(self):
