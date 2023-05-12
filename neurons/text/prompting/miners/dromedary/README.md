@@ -18,7 +18,6 @@ python3 -m pip install -r neurons/text/prompting/miners/dromedary/requirements.t
 ```
 
 # Model Weights
-If you already have a converted checkpoint of the model, you can skip this step.
 
 1. Get the original LLaMA weights in the Hugging Face format by following the instructions [here](https://huggingface.co/docs/transformers/main/model_doc/llama).
 2. Download the LoRA delta weights from Dromedary's Hugging Face [model hub](https://huggingface.co/zhiqings/dromedary-65b-lora-delta-v0).
@@ -36,8 +35,8 @@ python3 neurons/text/prompting/miners/dromedary/neuron.py
 
 # Full Usage
 <!-- ```
-usage: neuron.py [-h] [--koala.model_name KOALA.MODEL_NAME] [--koala.device KOALA.DEVICE] [--koala.max_new_tokens KOALA.MAX_NEW_TOKENS]
-                 [--koala.temperature KOALA.TEMPERATURE] [--koala.do_sample] [--netuid NETUID] [--neuron.name NEURON.NAME]
+usage: neuron.py [-h] [--dromedary.model_name KOALA.MODEL_NAME] [--dromedary.device KOALA.DEVICE] [--dromedary.max_new_tokens KOALA.MAX_NEW_TOKENS]
+                 [--dromedary.temperature KOALA.TEMPERATURE] [--dromedary.do_sample] [--netuid NETUID] [--neuron.name NEURON.NAME]
                  [--neuron.blocks_per_epoch NEURON.BLOCKS_PER_EPOCH] [--neuron.no_set_weights]
                  [--neuron.max_batch_size NEURON.MAX_BATCH_SIZE] [--neuron.max_sequence_len NEURON.MAX_SEQUENCE_LEN]
                  [--neuron.blacklist.hotkeys [NEURON.BLACKLIST.HOTKEYS ...]] [--neuron.blacklist.allow_non_registered]
@@ -59,13 +58,13 @@ optional arguments:
   -h, --help            show this help message and exit
   --neoxt.model_name NEOXT.MODEL_NAME
                         Name/path of model to load of model to load
-  --koala.device KOALA.DEVICE
+  --dromedary.device KOALA.DEVICE
                         Device to load model
-  --koala.max_new_tokens KOALA.MAX_NEW_TOKENS
+  --dromedary.max_new_tokens KOALA.MAX_NEW_TOKENS
                         Max tokens for model output.
-  --koala.temperature KOALA.TEMPERATURE
+  --dromedary.temperature KOALA.TEMPERATURE
                         Sampling temperature of model
-  --koala.do_sample    Whether to use sampling or not (if not, uses greedy decoding).
+  --dromedary.do_sample    Whether to use sampling or not (if not, uses greedy decoding).
   --netuid NETUID       Subnet netuid
   --neuron.name NEURON.NAME
                         Trials for this miner go in miner.root / (wallet_cold - wallet_hot) / miner.name
