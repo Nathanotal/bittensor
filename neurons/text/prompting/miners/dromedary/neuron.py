@@ -46,6 +46,8 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
                             help='What prompt to replace the system prompt with', default="BEGINNING OF CONVERSATION: ")
         parser.add_argument('--dromedary.internal_thought', type=bool, required=False,
                             help='Whether to use internal thought or not', default=False)
+        parser.add_argument('--dromedary.load_using_safetensors', type=bool, required=False,
+                            help='Whether to load the model using safetensors or not', default=False)
 
     def __init__(self):
         super(DromedaryMiner, self).__init__()
@@ -55,12 +57,21 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
             'Loading ' + str(self.config.dromedary.model_name))
         self.tokenizer = AutoTokenizer.from_pretrained(
             self.config.dromedary.model_name, use_fast=False)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            self.config.dromedary.model_name, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+        self.model = self.get_model()
+        
         bittensor.logging.info('Model loaded!')
 
         if self.config.dromedary.device != "cpu":
             self.model = self.model.to(self.config.dromedary.device)
+            
+    def get_model(self):
+        if self.config.dromedary.load_using_safetensors:
+            from transformers import AutoGPTQForCausalLM
+            return AutoGPTQForCausalLM.from_quantized(self.config.dromedary.model_name, device="cuda:0", use_triton=False)
+
+        else:
+            return AutoModelForCausalLM.from_pretrained(
+            self.config.dromedary.model_name, torch_dtype=torch.float16, low_cpu_mem_usage=True)
 
     def _process_history(self, history: List[str]) -> str:
         processed_history = ''

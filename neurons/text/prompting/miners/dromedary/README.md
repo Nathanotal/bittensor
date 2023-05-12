@@ -7,7 +7,7 @@ This code is for running the Dromedary model through the BitTensor framework.
 ## Contents
 
 - [Installing Dependencies](#installing-Dependencies)
-- [Converting Weights Into Model](#converting-weights-into-model)
+- [Model Weights](#model-Weights)
 - [Starting Miner](#starting-miner)
 
 
@@ -17,49 +17,16 @@ This code is for running the Dromedary model through the BitTensor framework.
 python3 -m pip install -r neurons/text/prompting/miners/dromedary/requirements.txt
 ```
 
-# Converting Weights Into Model
+# Model Weights
 If you already have a converted checkpoint of the model, you can skip this step.
 
-<!-- Original documentation for creating the model from weights can be found [here](https://github.com/young-geng/EasyLM/blob/main/docs/koala.md) -->
+1. Get the original LLaMA weights in the Hugging Face format by following the instructions [here](https://huggingface.co/docs/transformers/main/model_doc/llama).
+2. Download the LoRA delta weights from Dromedary's Hugging Face [model hub](https://huggingface.co/zhiqings/dromedary-65b-lora-delta-v0).
+3. Follow Dromedary's [inference guide](inference) to see how to deploy Dromedary/LLaMA on your own machine with [model parallel](https://github.com/facebookresearch/fairscale/tree/main/fairscale/nn/model_parallel) (which should be significantly faster than Hugging Face's default pipeline parallel when using multiple GPUs).
 
-## Obtaining the Wegith Diff of Dromedary
-<!-- Due to the licence of the LLaMA model, the fine-tuned
-Koala model weights can not be directly released. Instead, the diff of weights, which can be used
-to recover the Koala model weights with the original LLaMA model weights, is released. The diff
-weights can be downloaded from the following sources:
-* [HuggingFace Hub](https://huggingface.co/young-geng/koala/tree/main).
-* [Google Drive](https://drive.google.com/drive/folders/10f7wrlAFoPIy-TECHsx9DKIvbQYunCfl?usp=sharing). -->
+Original documentation for creating the model from weights can be found [here](https://github.com/IBM/Dromedary/blob/main/README.md)
 
-The delta uses the GNU General Public License v3.0
-
-## Recovering the Dromedary Model Weights
-<!-- The first step of recovering the Koala model weights is to obtain the original
-LLaMA model weights and convert it to EasyLM checkpoint format. To convert the weights,
-use the following command:
-
-``` shell
-python -m EasyLM.models.llama.convert_torch_to_easylm \
-    --checkpoint_dir='path/to/torch/llama/checkpoint/directory' \
-    --output_file='path/to/output/easylm/checkpoint/file' \
-    --streaming=True
-```
-
-This script will convert the official torch checkpoint from Meta to the
-streaming checkpoint format used by EasyLM. For more information
-about the checkpoint format of EasyLM, see [the checkpointing documentation](checkpointing.md).
-
-
-After converting the original LLaMA model weights, you can recover the Koala
-model weights with the following command:
-
-``` shell
-python -m EasyLM.scripts.diff_checkpoint \
-    --recover_diff=True \
-    --load_base_checkpoint='params::path/to/llama/checkpoint/file' \
-    --load_target_checkpoint='params::path/to/koala/diff/checkpoint/file' \
-    --output_file='path/to/output/checkpoint/file' \
-    --streaming=True
-``` -->
+**Note: The delta uses the GNU General Public License v3.0**
 
 
 # Starting Miner
