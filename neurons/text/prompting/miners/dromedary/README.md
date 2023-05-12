@@ -34,9 +34,9 @@ python3 neurons/text/prompting/miners/dromedary/neuron.py
 ```
 
 # Full Usage
-<!-- ```
-usage: neuron.py [-h] [--dromedary.model_name KOALA.MODEL_NAME] [--dromedary.device KOALA.DEVICE] [--dromedary.max_new_tokens KOALA.MAX_NEW_TOKENS]
-                 [--dromedary.temperature KOALA.TEMPERATURE] [--dromedary.do_sample] [--netuid NETUID] [--neuron.name NEURON.NAME]
+```
+usage: neuron.py [-h] [--dromedary.model_name DROMEDARY.MODEL_NAME] [--dromedary.device DROMEDARY.DEVICE] [--dromedary.max_new_tokens DROMEDARY.MAX_NEW_TOKENS]
+                 [--dromedary.temperature DROMEDARY.TEMPERATURE] [--dromedary.do_sample] [--dromedary.gptq_path] [--netuid NETUID] [--neuron.name NEURON.NAME]
                  [--neuron.blocks_per_epoch NEURON.BLOCKS_PER_EPOCH] [--neuron.no_set_weights]
                  [--neuron.max_batch_size NEURON.MAX_BATCH_SIZE] [--neuron.max_sequence_len NEURON.MAX_SEQUENCE_LEN]
                  [--neuron.blacklist.hotkeys [NEURON.BLACKLIST.HOTKEYS ...]] [--neuron.blacklist.allow_non_registered]
@@ -58,13 +58,15 @@ optional arguments:
   -h, --help            show this help message and exit
   --neoxt.model_name NEOXT.MODEL_NAME
                         Name/path of model to load of model to load
-  --dromedary.device KOALA.DEVICE
+  --dromedary.device DROMEDARY.DEVICE
                         Device to load model
-  --dromedary.max_new_tokens KOALA.MAX_NEW_TOKENS
+  --dromedary.max_new_tokens DROMEDARY.MAX_NEW_TOKENS
                         Max tokens for model output.
-  --dromedary.temperature KOALA.TEMPERATURE
+  --dromedary.temperature DROMEDARY.TEMPERATURE
                         Sampling temperature of model
   --dromedary.do_sample    Whether to use sampling or not (if not, uses greedy decoding).
+  --dromedary.internal_thought   Whether to use internal thought or not
+  --dromedary.load_using_safetensors   Whether to load the model using safetensors or not
   --netuid NETUID       Subnet netuid
   --neuron.name NEURON.NAME
                         Trials for this miner go in miner.root / (wallet_cold - wallet_hot) / miner.name
@@ -140,4 +142,4 @@ optional arguments:
   --metagraph._mock     To turn on metagraph mocking for testing purposes.
   --config CONFIG       If set, defaults are overridden by passed file.
   --strict              If flagged, config will check that only exact arguemnts have been set.
-``` -->
+```
