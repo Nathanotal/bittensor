@@ -32,6 +32,8 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
     def add_args(cls, parser: argparse.ArgumentParser):
         parser.add_argument('--dromedary.model_name', type=str,
                             required=True, help='Name/path of model to load')
+        parser.add_argument('--dromedary.gptq_path', type=str,
+                            required=True, help='Path to quantized weights, requires safetensor to be set')
         parser.add_argument('--dromedary.device', type=str,
                             help='Device to load model', default="cuda")
         parser.add_argument('--dromedary.max_new_tokens', type=int,
@@ -67,7 +69,7 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
     def get_model(self):
         if self.config.dromedary.load_using_safetensors:
             from auto_gptq import AutoGPTQForCausalLM
-            return AutoGPTQForCausalLM.from_quantized(self.config.dromedary.model_name, device="cuda:0", use_triton=False)
+            return AutoGPTQForCausalLM.from_quantized( self.config.dromedary.gptq_path, model_basename = self.config.dromedary.model_name, device="cuda:0", use_triton=False)
 
         else:
             return AutoModelForCausalLM.from_pretrained(

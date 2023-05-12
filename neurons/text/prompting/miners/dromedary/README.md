@@ -1,5 +1,5 @@
 # Dromedary Miner
-Dromedary Language Model Serving with BitTensor
+[Dromedary Language Model]((https://github.com/IBM/Dromedary/tree/main)) Serving with BitTensor
 This code is for running the Dromedary model through the BitTensor framework.
 
 # Overview
