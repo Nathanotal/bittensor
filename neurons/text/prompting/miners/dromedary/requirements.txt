@@ -1,0 +1,8 @@
+torch
+fairscale
+fire
+sentencepiece
+
+# transformers>=4.28.0
+# fschat
+# accelerate
