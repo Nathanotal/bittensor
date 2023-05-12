@@ -69,7 +69,7 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
     def get_model(self):
         if self.config.dromedary.load_using_safetensors:
             from auto_gptq import AutoGPTQForCausalLM
-            return AutoGPTQForCausalLM.from_quantized( self.config.dromedary.gptq_path, model_basename = self.config.dromedary.model_name, device="cuda:0", use_triton=False, use_safetensors=True)
+            return AutoGPTQForCausalLM.from_quantized( self.config.dromedary.gptq_path, device="cuda:0", use_triton=False, use_safetensors=True)
 
         else:
             return AutoModelForCausalLM.from_pretrained(
