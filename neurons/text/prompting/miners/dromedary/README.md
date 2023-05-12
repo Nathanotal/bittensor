@@ -30,6 +30,8 @@ weights can be downloaded from the following sources:
 * [HuggingFace Hub](https://huggingface.co/young-geng/koala/tree/main).
 * [Google Drive](https://drive.google.com/drive/folders/10f7wrlAFoPIy-TECHsx9DKIvbQYunCfl?usp=sharing). -->
 
+The delta uses the GNU General Public License v3.0
+
 ## Recovering the Dromedary Model Weights
 <!-- The first step of recovering the Koala model weights is to obtain the original
 LLaMA model weights and convert it to EasyLM checkpoint format. To convert the weights,
