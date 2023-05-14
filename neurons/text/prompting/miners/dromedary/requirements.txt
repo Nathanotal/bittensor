@@ -2,5 +2,3 @@ torch
 sentencepiece
 transformers>=4.28.0
 accelerate
-auto_gptq
-safetensors
