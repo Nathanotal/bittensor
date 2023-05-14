@@ -50,6 +50,9 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
                             help='Whether to use internal thought or not', action='store_true', default=False)
         parser.add_argument('--dromedary.load_using_safetensors', required=False,
                             help='Whether to load the model using safetensors or not', action='store_true', default=False)
+        parser.add_argument('--dromedary.use_8bit', required=False,
+                            help='Whether to use 8 bit or not', action='store_true', default=False)
+        parser.add_argument('--dromedary.device_map', type=str, help='Specify the device map', default=None)
 
     def __init__(self):
         super(DromedaryMiner, self).__init__()
@@ -63,18 +66,23 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
         
         bittensor.logging.info('Model loaded!')
 
-        if self.config.dromedary.device != "cpu":
-            self.model = self.model.to(self.config.dromedary.device)
+
             
     def get_model(self):
         if self.config.dromedary.load_using_safetensors:
             from auto_gptq import AutoGPTQForCausalLM
-            return AutoGPTQForCausalLM.from_quantized( self.config.dromedary.gptq_path, device="cuda:0", use_triton=False, use_safetensors=True)
+            model = AutoGPTQForCausalLM.from_quantized( self.config.dromedary.gptq_path, device="cuda:0", use_triton=False, use_safetensors=True)
 
         else:
-            return AutoModelForCausalLM.from_pretrained(
-            self.config.dromedary.model_name, torch_dtype=torch.float16, low_cpu_mem_usage=True)
-
+            if self.config.dromedary.device_map:
+                model = AutoModelForCausalLM.from_pretrained(self.config.dromedary.model_name, torch_dtype=torch.float16, low_cpu_mem_usage=True, load_in_8bit=self.config.dromedary.use_8bit, device_map=self.config.dromedary.device_map)
+            else:
+                model = AutoModelForCausalLM.from_pretrained(self.config.dromedary.model_name, torch_dtype=torch.float16, low_cpu_mem_usage=True, load_in_8bit=self.config.dromedary.use_8bit)
+                if self.config.dromedary.device != "cpu":
+                    model = model.to(self.config.dromedary.device)
+        
+        return model
+    
     def _process_history(self, history: List[str]) -> str:
         processed_history = ''
 
