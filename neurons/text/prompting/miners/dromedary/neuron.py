@@ -33,7 +33,7 @@ class DromedaryMiner(bittensor.BasePromptingMiner):
         parser.add_argument('--dromedary.model_name', type=str,
                             required=True, help='Name/path of model to load')
         parser.add_argument('--dromedary.gptq_path', type=str,
-                            required=True, help='Path to quantized weights, requires safetensor to be set')
+                            required=False, help='Path to quantized weights, requires safetensor to be set')
         parser.add_argument('--dromedary.device', type=str,
                             help='Device to load model', default="cuda")
         parser.add_argument('--dromedary.max_new_tokens', type=int,
